@@ -16,3 +16,11 @@ var chart = c3.generate({
     }
 });
 </script>
+
+
+<%= form_tag '/upload_csv', method: 'post', multipart: true do %>
+   <label>Upload CSV</label>
+   <%= file_field :fileupload, :file %>
+	
+   <%= submit_tag 'Upload' %>
+<% end %>
