@@ -1,16 +1,15 @@
 class WelcomeController < ApplicationController
+	require 'csv'
+
 	def index
 	end
 
 	def upload_csv
 		uploaded_file = fileupload_param[:file]
-		output_path = Rails.root.join('public', uploaded_file.original_filename)
+		read_csv = uploaded_file.read.split("\r\n").slice(5..-1).join("\r\n")
+		csv_data = CSV.parse(read_csv, headers:true)
 
-		File.open(output_path, 'w+b') do |fp|
-			fp.write  uploaded_file.read
-		end
-
-		redirect_to action: 'index'
+		logger.debug csv_data
 	end
 
 	private

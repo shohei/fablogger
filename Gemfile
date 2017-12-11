@@ -18,6 +18,7 @@ gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) support
 gem "twitter-bootstrap-rails"
 gem 'c3-rails'
 gem 'd3-rails', '~> 3.5.17'
+gem 'pry-rails'
 
 group :development, :test do
     gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
