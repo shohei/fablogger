@@ -17,8 +17,9 @@ var chart = c3.generate({
 });
 </script>
 
+<div id="result"></div>
 
-<%= form_tag '/upload_csv', method: 'post', multipart: true do %>
+<%= form_tag '/upload_csv', method: 'post', multipart: true, remote: true do %>
    <label>Upload CSV</label>
    <%= file_field :fileupload, :file %>
 	
