@@ -1,1 +1,35 @@
-$('#result').html("<%= j @csv_data.to_s %>")
+function rubyArrayToJSArray(rubyArrayAsString){
+	var rubyarray = rubyArrayAsString.replace(/&quot;/g, '"');
+	rubyarray = rubyarray.replace(/\[/g,'');
+	rubyarray = rubyarray.replace(/\]/g,'');
+	jsArray = rubyarray.split(',');
+	var columnName = jsArray[0].replace('"','').replace('"','');
+	jsArray = jsArray.map(Number);
+	jsArray = jsArray.slice(1); //remove column name
+	jsArray.unshift(columnName);
+	return jsArray;
+}
+
+// var hoge = "<%= escape_javascript @temperature.to_s %>";
+var temperature = rubyArrayToJSArray("<%= escape_javascript @temperature.to_s %>");
+var lux = rubyArrayToJSArray("<%= escape_javascript @lux.to_s %>");
+var humidity = rubyArrayToJSArray("<%= escape_javascript @humidity.to_s %>");
+var acc_x = rubyArrayToJSArray("<%= escape_javascript @acc_x.to_s %>");
+var acc_y = rubyArrayToJSArray("<%= escape_javascript @acc_y.to_s %>");
+var acc_z = rubyArrayToJSArray("<%= escape_javascript @acc_z.to_s %>");
+
+var chart = c3.generate({
+    bindto: '#chart',
+    data: {
+      columns: [
+          // ["Temperature", 24.2, 24.2, 24.1, 24.1, 24.1, 24.1, 24.2, 24.1, 24.1, 24.1]
+          temperature,
+          lux,
+          humidity,
+          acc_x,
+          acc_y,
+          acc_z
+      ]
+    }
+});
+// $('#result').html("<%= escape_javascript @temperature.to_s %>");
